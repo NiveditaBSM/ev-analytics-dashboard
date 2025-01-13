@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.activeNavLink {
+    background: black;
+    color: white
+  }

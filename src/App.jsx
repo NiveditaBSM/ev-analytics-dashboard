@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
-import Header from "./components/Header";
 import Layout from "./components/shared/Layout";
 import Overview from "./components/pages/Overview";
 import RegionBoard from "./components/pages/RegionBoard";
@@ -37,16 +36,15 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/dashboard" element={<Layout />}>
-            <Route path="/overview" element={<Overview />} />
-            <Route path="/regionwise" element={<RegionBoard />} />
-            <Route path="/makewise" element={<MakeBoard />} />
-            <Route path="/compare" element={<CompareBoard />} />
-            <Route index element={<Navigate to="/overview" replace />} />
+            <Route path="/dashboard/overview" element={<Overview />} />
+            <Route path="/dashboard/regionwise" element={<RegionBoard />} />
+            <Route path="/dashboard/makewise" element={<MakeBoard />} />
+            <Route path="/dashboard/compare" element={<CompareBoard />} />
+            <Route index element={<Navigate to="/dashboard/overview" replace />} />
           </Route>
+          <Route index element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </Router>
-      <Header />
-      <p className="text-center"> Hello</p>
     </>
   )
 }
