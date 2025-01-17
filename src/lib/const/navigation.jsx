@@ -1,28 +1,25 @@
-import { RiDashboard3Line } from "react-icons/ri";
-import { GrMapLocation } from "react-icons/gr";
-import { BsEvFront } from "react-icons/bs";
-import { CiGrid2V } from "react-icons/ci";
+import { FolderKanban, Car, Map, Copy } from 'lucide-react';
 
 export const NAVBAR_LINKS = [
     {
-        iconName: RiDashboard3Line,
+        iconName: FolderKanban,
         name: "Overview",
-        url: '/dashboard/overview'
+        url: '/overview'
     },
     {
-        iconName: BsEvFront,
+        iconName: Car,
         name: "Distribution by Manufacturer",
-        url: '/dashboard/makewise'
+        url: '/makewise'
     },
     {
-        iconName: GrMapLocation,
+        iconName: Map,
         name: "Distribution by Region",
-        url: '/dashboard/regionwise'
+        url: '/regionwise'
     },
     {
-        iconName: CiGrid2V,
+        iconName: Copy,
         name: "Compare",
-        url: '/dashboard/compare'
+        url: '/compare'
     },
 
 ]

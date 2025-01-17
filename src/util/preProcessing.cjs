@@ -1,9 +1,16 @@
+const fs = require('fs');
+const csv = require('csv-parser');
+
+const filePath = '../../data-to-visualize/Electric_Vehicle_Population_Data.csv';
+
+const data = [];
+
 // headers in csv file: 
 // VIN (1-10),County,City,State,Postal Code,Model Year,Make,Model,Electric Vehicle Type,
 // Clean Alternative Fuel Vehicle (CAFV) Eligibility,Electric Range,Base MSRP,
 // Legislative District,DOL Vehicle ID,Vehicle Location,Electric Utility,2020 Census Tract
 
-export const parseCSVtoObj = (text) => {
+const parseCSVtoObj = (text) => {
     const lines = text.split("\n");
     const header = lines[0].split(",").map(title => title.trim());
     return lines
@@ -18,7 +25,30 @@ export const parseCSVtoObj = (text) => {
         });
 }
 
-export const getInsights = (data) => {
+const getData = async () => {
+    console.log("CSV fetch started");
+
+    await new Promise((resolve, reject) => {
+        fs.createReadStream(filePath)
+            .pipe(csv())
+            .on('data', (row) => {
+                data.push(row);
+            })
+            .on('end', () => {
+                console.log('CSV file successfully processed');
+                resolve(data)
+            })
+            .on('error', (error) => {
+                console.log("Error reading the csv file", error);
+                reject(error);
+            })
+    });
+
+    return data;
+}
+
+const getInsights = (data) => {
+    // console.log("Data passed to getInsights:", data);
     if (!Array.isArray(data)) {
         throw new Error("Data is not an array");
     }
@@ -170,6 +200,17 @@ export const getInsights = (data) => {
     console.log("Overview insights: ", overviewInsights);
 
     return { keyInsights, overviewInsights };
-
 }
+
+
+const processing = async () => {
+    const data = await getData();
+    const insights = await getInsights(data);
+    return insights;
+}
+
+
+processing().then(data => {
+    console.log("Output data after processing: ", data);
+});
 

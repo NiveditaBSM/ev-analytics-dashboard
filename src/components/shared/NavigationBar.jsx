@@ -15,16 +15,18 @@ const NavigationBar = () => {
 
 export default NavigationBar;
 
-const linkClasses = "sidebarLink flex items-center gap-3 px-4 py-4 rounded-md";
+const linkClasses = "flex items-center gap-2 p-4 rounded-md font-medium ";
 
 const NavbarLink = ({ item }) => {
     const { pathname } = useLocation();
-    console.log("pathname: ", pathname)
-    console.log("item.url: ", item.url)
+    // console.log("pathname: ", pathname)
+    // console.log("item.url: ", item.url)
     return (
-        <Link to={item.url} className={classNames(linkClasses, pathname === item.url ? 'activeNavLink' : '')}>
-            <span className="text-xl"> <item.iconName /> </span>
-            {item.name}
+        <Link to={item.url} >
+            <div className={classNames(linkClasses, pathname === item.url ? `bg-black text-white hover:bg-black hover:shadow-xl transition-shadow duration-300` : 'bg-slate-50 text-gray-700 hover:shadow-xl hover:bg-slate-50 transition-shadow duration-300')}>
+                <span className="text-base"> <item.iconName /> </span>
+                {item.name}
+            </div>
         </Link>
     )
 }
