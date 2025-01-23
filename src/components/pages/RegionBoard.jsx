@@ -1,7 +1,9 @@
+import UnderConstruction from "../subcomponents/utils/UnderConstruction";
+
 const RegionBoard = () => {
     return (
         <>
-            <p> Region wise data dashboard will be here!</p>
+            <UnderConstruction message={'Once complete this page will display region-wise insights from EV data'} />
         </>
     )
 }

@@ -1,17 +1,22 @@
+import { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
+
 import Layout from "./components/shared/Layout";
 import Overview from "./components/pages/Overview";
+import LoadingState from "./components/subcomponents/utils/LoadingState";
 import RegionBoard from "./components/pages/RegionBoard";
 import MakeBoard from "./components/pages/MakeBoard";
 import CompareBoard from "./components/pages/CompareBoard";
-import { useState, useEffect, useContext } from "react";
+
 import EV_Data from '../data-to-visualize/Electric_Vehicle_Population_Data.csv';
-import { parseCSVtoObj, getInsights } from "./util/preProcessing";
+
 import { DataContext } from "./context/DataContext";
+import { parseCSVtoObj, getInsights } from "./util/preProcessing";
+
 
 const App = () => {
-  const [isLoading, setIsloading] = useState(true);
-  const { insights, setInsights } = useContext(DataContext);
+
+  const data = useContext(DataContext);
 
   console.log("Inside app");
 
@@ -27,21 +32,21 @@ const App = () => {
       console.log(parsedData);
 
       const insights = getInsights(parsedData);
-      setInsights(insights);
-      setIsloading(false);
+      data.setInsights(insights);
+      data.setIsloading(false);
     };
     getData();
   }, [])
 
-  console.log(insights);
+  console.log(data.insights);
 
-  if (isLoading) return (
-    <div> Loading Data...</div>
+  if (data.isLoading) return (
+    <LoadingState />
   )
 
   return (
     <>
-      {/* <Router>
+      <Router>
         <div className='flex h-screen bg-slate-50 text-gray-950'>
           <div className="fixed inset-0 z-0">
             <div className="absolute inset-0 bg-slate-300 opacity-80" />
@@ -49,7 +54,7 @@ const App = () => {
           </div>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route path="/overview" element={<Overview />} />
+              <Route path="/overview" element={<Overview data={data} />} />
               <Route path="/regionwise" element={<RegionBoard />} />
               <Route path="/makewise" element={<MakeBoard />} />
               <Route path="/compare" element={<CompareBoard />} />
@@ -58,7 +63,7 @@ const App = () => {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
-      </Router> */}
+      </Router>
     </>
   )
 }

@@ -48,9 +48,9 @@ const renderCustomLegend = (props) => {
 
 const ManufacturerDistCard = () => {
     const { insights, setInsights } = useContext(DataContext);
-    const stats = insights.freqBasedStats.countByMake.slice(0, 5);
+    const stats = insights.overviewInsights.distributionByMake;
     console.log("In manufacturer distribution component: ", stats);
-    
+
     return (
         <motion.div
             className='p-6 rounded-xl bg-white shadow-lg  hover:shadow-xl transition-shadow duration-300'
@@ -61,7 +61,7 @@ const ManufacturerDistCard = () => {
             <h2 className='text-md font-medium mb-4 text-gray-500'> Manufacturer's share</h2>
             <div className='h-80 text-sm p-2'>
                 <ResponsiveContainer width={"100%"} height={"100%"}>
-                    <PieChart margin={{ top: -50, right: 0, bottom: 20, left: 0 }}>
+                    <PieChart margin={{ top: 0, right: 0, bottom: 20, left: 0 }}>
                         <Pie
                             data={stats}
                             cx={"50%"}

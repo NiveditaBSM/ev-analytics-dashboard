@@ -4,8 +4,9 @@ import { DataContext } from './DataContext';
 
 const ContextProvider = ({ children }) => {
     const [insights, setInsights] = useState(null);
+    const [isLoading, setIsloading] = useState(true);
     return (
-        <DataContext.Provider value={{ insights, setInsights }}>
+        <DataContext.Provider value={{ insights, setInsights, isLoading, setIsloading }}>
             {children}
         </DataContext.Provider>
     );

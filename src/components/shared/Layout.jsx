@@ -8,7 +8,7 @@ const Layout = () => {
                 <NavigationBar />
             </div>
 
-            <div className='flex-grow overflow-y-auto mx-5 mb-3 rounded-lg bg-slate-50'>
+            <div className='flex-grow sm:overflow-y-auto mx-5 mb-3 rounded-lg bg-slate-50'>
                 <Outlet />
             </div>
         </div>

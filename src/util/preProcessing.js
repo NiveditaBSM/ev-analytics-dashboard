@@ -1,4 +1,4 @@
-// headers in csv file: 
+// header in csv file: 
 // VIN (1-10),County,City,State,Postal Code,Model Year,Make,Model,Electric Vehicle Type,
 // Clean Alternative Fuel Vehicle (CAFV) Eligibility,Electric Range,Base MSRP,
 // Legislative District,DOL Vehicle ID,Vehicle Location,Electric Utility,2020 Census Tract
@@ -30,14 +30,14 @@ export const getInsights = (data) => {
 
     const rangeInsights = {
         maxRange: { range: 0, model: "", make: "" },
-        minRange: { range: 0, model: "", make: "" },
+        minRange: { range: Infinity, model: "", make: "" },
         validRangeCount: 0,
         totalRange: 0
     };
 
     const msrpInsights = {
         maxMSRP: { msrp: 0, model: "", make: "" },
-        minMSRP: { msrp: 0, model: "", make: "" },
+        minMSRP: { msrp: Infinity, model: "", make: "" },
         validMSRPCount: 0,
         totalMSRP: 0
     }
@@ -124,10 +124,9 @@ export const getInsights = (data) => {
             .sort((a, b) => b.count - a.count),
 
     }
-    console.log("Key Insights: ", keyInsights);
+    // console.log("Key Insights: ", keyInsights);
 
     let sortedModel = keyInsights.populationByModel;
-    //console.log("Population by make: ", keyInsights.populationByMake[0].make);
     let topMake = keyInsights.populationByMake[0]?.make || 'N/A';
     let topModelOfTopMake;
 
@@ -143,8 +142,10 @@ export const getInsights = (data) => {
     makeStats.forEach((item, i) => {
         if (i < 5) distributionByMake[item.make] = item.count;
         else distributionByMake['Others'] += item.count;
-    })
-
+    });
+    const distributionByMakeArray = Object.entries(distributionByMake)
+        .map(([make, count]) => ({ make, count }))
+        .sort((a, b) => b.count - a.count);
     const overviewInsights = {
         topBrand: {
             name: topMake,
@@ -163,11 +164,11 @@ export const getInsights = (data) => {
         cafvEligiblePercent: ((cafvEligibilityCount / keyInsights.totalPopulation) * 100).toFixed(1),
         bevShare: ((BEVCount / keyInsights.totalPopulation) * 100).toFixed(1),
         phevShare: ((PHEVCount / keyInsights.totalPopulation) * 100).toFixed(1),
-        distributionByMake
+        distributionByMake: distributionByMakeArray,
 
     }
 
-    console.log("Overview insights: ", overviewInsights);
+    // console.log("Overview insights: ", overviewInsights);
 
     return { keyInsights, overviewInsights };
 

@@ -6,9 +6,9 @@ import { motion } from 'framer-motion';
 
 
 const RegistrationTrend = () => {
-    const { insights, setInsights } = useContext(DataContext);
-    const stats = insights.freqBasedStats.countByYear.filter(e => e.year > 2024 - 10);
-    console.log("In registration trend component: ", stats);
+    const data = useContext(DataContext);
+    const stats = data.insights.keyInsights.populationByYear.filter(e => e.year > 2024 - 10);
+
     return (
         <motion.div
             className='p-6 rounded-xl bg-white shadow-lg  hover:shadow-xl transition-shadow duration-300'
@@ -16,7 +16,7 @@ const RegistrationTrend = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
         >
-            <h2 className='text-md font-medium mb-4 text-gray-500'> Sales overview (Past Decade)</h2>
+            <h2 className='text-md font-medium mb-4 text-gray-500'> EV Sales Trend (Past Decade)</h2>
             <div className='h-80 text-sm p-2'>
                 <ResponsiveContainer width={'100%'} height={'100%'} >
                     <LineChart data={stats} margin={{ top: 10, right: 50, bottom: 10, left: 10 }}>

@@ -1,7 +1,9 @@
+import UnderConstruction from "../subcomponents/utils/UnderConstruction";
+
 const CompareBoard = () => {
     return (
         <>
-            <p> Comparison dashboard will be here!</p>
+            <UnderConstruction message={'Once complete this page will compare EV data across selected fields'} />
         </>
     )
 }

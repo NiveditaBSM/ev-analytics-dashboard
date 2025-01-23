@@ -1,7 +1,9 @@
+import UnderConstruction from "../subcomponents/utils/UnderConstruction";
+
 const MakeBoard = () => {
     return (
         <>
-            <p> Manufacture wise data dashboard will be here!</p>
+            <UnderConstruction message={'Once complete this page will display make-wise insights from EV data'} />
         </>
     )
 }
